@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/details/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "好店",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 20000
+  },
+  "debug": false
+}
