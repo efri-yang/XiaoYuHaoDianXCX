@@ -1,1 +1,33 @@
-<!--index.wxml-->
+<view class='nav-scroll-wrap'>
+  <scroll-view  scroll-x="true" bindscroll="scroll" class="nav-scroll clearfix">
+        <view class='scroll-view-item active'>
+            <text class="txt">全部</text>
+        </view>
+         <view class='scroll-view-item'>
+            <text class="txt">新订单</text>
+        </view>
+         <view class='scroll-view-item'>
+            <text class="txt">已量房</text>
+        </view>
+         <view class='scroll-view-item'>
+            <text class="txt">已设计</text>
+        </view>
+         <view class='scroll-view-item'>
+            <text class="txt">已签约</text>
+        </view>
+        <view class='scroll-view-item'>
+            <text class="txt">已失效</text>
+        </view>
+
+        <view class='scroll-view-item'>
+            <text class="txt">已失效</text>
+        </view>
+        <view class='scroll-view-item'>
+            <text class="txt">已失效</text>
+        </view>
+        <view class='scroll-view-item'>
+            <text class="txt">已失效</text>
+        </view>
+  </scroll-view>
+</view>
+
