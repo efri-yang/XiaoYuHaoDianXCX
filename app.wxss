@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import "/static/css/iconfont/iconfont.wxss";
 page{
    font-family: -apple-system-font, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', sans-serif;
 }

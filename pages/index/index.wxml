@@ -1,6 +1,6 @@
 <!--index.wxml-->
 
-
+<view class="iconfont icon-76"></view>
 <view class="container" style='position:relative;z-index:110;'>
   <scroll-view class="gs-main-nav clear" scroll-x="true" bindscroll="scroll" style="width: 100%;background:#fff;">
         <view wx:for="{{dataNav.data.list}}" wx:for-index="index" wx:for-item="item" id="{{item}}"   bindtap='navTap' class="item {{index==currentIndex ? 'current' : ''}}" >
