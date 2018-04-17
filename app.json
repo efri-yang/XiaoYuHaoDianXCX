@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/login/login",
+    "pages/index/index",
     "pages/cost/cost",
     "pages/detail/detail",
-    "pages/list/list",
-    "pages/index/index",
-    "pages/login/login"
+    "pages/list/list"
     
   ],
   "window": {
