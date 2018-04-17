@@ -1,52 +1,14 @@
 <!--index.wxml-->
-
-<view class="iconfont icon-76"></view>
-<view class="container" style='position:relative;z-index:110;'>
-  <scroll-view class="gs-main-nav clear" scroll-x="true" bindscroll="scroll" style="width: 100%;background:#fff;">
-        <view wx:for="{{dataNav.data.list}}" wx:for-index="index" wx:for-item="item" id="{{item}}"   bindtap='navTap' class="item {{index==currentIndex ? 'current' : ''}}" >
-            <text class="txt">{{item}}</text>
-        </view>
-  </scroll-view>
-  <view class="h-nav-all" wx:if="{{isNavAllShow}}">
-        <view class='hd'>
-            <text class='tit'>全部分类</text>
-        </view>
-        <view wx:for="{{dataNav.data.list}}" wx:for-index="index" wx:for-item="item" id="{{item}}"   bindtap='navTap'  class="item {{index==currentIndex ? 'current' : ''}}" >
-            <text class="txt">{{item}}</text>
-        </view>  
+<view class='header-top clearfix'>
+  <view class='avatar-box'>
+    <view class='pic'>
+      <image src='/upload/avatar.jpg' mode="{{aspectFit}}"></image>
+    </view>
+    <view class="txt">刘大海</view>
+    <view class='level-tag'>
+        <view class='icon-level'><text class='iconfont icon-jinpai '></text></view>
+        <view class="tag-name"><text>金牌商家</text></view>
+    </view>
   </view>
-  <view class="h-more-btn {{!!isNavAllShow ? 'current' :''}}" bindtap="navMore"><view class="arrow"></view></view>
+  <view class=''></view>
 </view>
-
-<view class="h-nav-all-mask" wx:if="{{isNavAllShow}}" bindtouchstart='navMask'></view>
-
-
-
-<view class='gs-tbl-thead-holder'>
-  <view class="gs-tbl-thead {{!!isTblHeadFixed ? 'fixed' :''}}">
-    <view class="item">排名</view>
-    <view class="item item-2">商家</view>
-    <view class="item">好店指数</view>
-  </view>
-</view>
-
-<view class='gs-tbl-nodata' wx:if="{{!dataRank.data.shops.length && !isLoadingShow}}">
-    暂无数据！
-</view>
-<view class='coms-load-more'  wx:if="{{isLoadingShow}}">
-    <view class='pic'></view>
-</view>
-<view class="gs-tbl-tbody"  wx:if="{{dataRank.data.shops.length && !isLoadingShow}}">
-     <navigator wx:for="{{dataRank.data.shops}}" wx:for-index="index" wx:for-item="item"  url="/pages/details/index?id={{item.id}}" hover-class="navigator-hover">
-          <view class="item-box">
-                  <view class="item item-1">{{item.rank}}</view>
-                  <view class="item item-2">{{item.name}}</view>
-                  <view class="item item-3">{{item.hdi2}}</view>     
-          </view>
-     </navigator>
-</view>
-
-
-
-
-
