@@ -1,0 +1,9 @@
+
+
+<view class="cost-container">
+  <view class='tip-1'>为了更加精准为您派单，请填写工程造价</view>
+  <view class='form-item'>
+      <label class='lab'>¥</label>
+      <input type='number' />
+  </view>
+</view>

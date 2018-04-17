@@ -1,0 +1,18 @@
+.cost-container{
+  padding:0 30rpx; 
+}
+
+.cost-container .tip-1{
+  color:#3c4050;
+  font-size:28rpx;  
+}
+
+.form-item{
+  position: relative;
+}
+
+.form-item .lab{
+  position: absolute;
+  left:0;
+  top:0;
+}
