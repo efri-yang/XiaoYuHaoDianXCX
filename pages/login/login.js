@@ -1,20 +1,24 @@
 import WxValidate from '../../static/js/plugin/WxValidate'
 const app = getApp();
 Page({
+  data:{
+    validateMsg:false
+  },
   onLoad:function(){
     this._initValidate();
+    console.dir("onLoad")
   },
   formSubmit: function (e) {
     const params = e.detail.value;
     console.log(params);
     if (!this.WxValidate.checkForm(e)) {
       const error = this.WxValidate.errorList[0]
-      wx.showToast({
-        title: error.msg,
-        icon: 'none',
-        duration: 2000
-      })  
+      this.setData({
+        validateMsg:error.msg
+      })
       return false
+    }else{
+      console.dir("xxx");
     }
   },
   _initValidate() {
