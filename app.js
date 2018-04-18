@@ -1,6 +1,6 @@
 //app.js
 App({
   globalData: {
-    server: "https://wnworld.com/api/xiaochengxu"
+    server: "https://wnworld.com/api/jiedanbang/"
   }
 })

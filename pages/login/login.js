@@ -1,10 +1,10 @@
 import WxValidate from '../../static/js/plugin/WxValidate'
 const app = getApp();
 Page({
-  data:{
-    validateMsg:false
+  data: {
+    validateMsg: false
   },
-  onLoad:function(){
+  onLoad: function () {
     this._initValidate();
     console.dir("onLoad")
   },
@@ -14,19 +14,41 @@ Page({
     if (!this.WxValidate.checkForm(e)) {
       const error = this.WxValidate.errorList[0]
       this.setData({
-        validateMsg:error.msg
+        validateMsg: error.msg
       })
       return false
-    }else{
-      console.dir("xxx");
+    } else {
+      
+      wx.request({
+        url: "https://m3.xiaoyu.com/welcome/wechatapp?callback=haodian.cates",
+        data: {},
+        method: 'post',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        dataType:"json",
+        success: function (res) {
+          that.setData({
+            dataNav: res.data
+          });
+          that.ajaxGetRankList(that.data.dataNav.data.list[0]);
+        }
+      })
     }
   },
+  //账号输入框事件
+  bindInputTap: function () {
+    this.setData({
+      validateMsg: false
+    })
+  },
+  //初始化验证插件
   _initValidate() {
-    const rules={
-      username:{
+    const rules = {
+      username: {
         required: true
       },
-      password:{
+      password: {
         required: true
       }
     }

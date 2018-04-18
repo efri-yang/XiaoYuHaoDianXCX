@@ -9,7 +9,7 @@
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="item-cell">
       <view class="lab">账号</view>
-      <input type='text' class='ipt-text' name="username" placeholder="请输入您的账号" />
+      <input type='text' class='ipt-text' name="username" bindtap="bindInputTap" placeholder="请输入您的账号" />
     </view>
     <view class="item-cell">
       <view class="lab">密码</view>
