@@ -1,4 +1,5 @@
 <!--login.wxml-->
+
 <view class="title-1">登录</view>
 <view class="title-2">请使用小鱼家装商家账号登录</view>
 
@@ -13,10 +14,10 @@
     </view>
     <view class="item-cell">
       <view class="lab">密码</view>
-      <input type='password' class='ipt-text' name="password" placeholder="请输入您的密码" />
+      <input type='password' class='ipt-text' name="password"  bindtap="bindInputTap" placeholder="请输入您的密码" />
     </view>
     <view class="ipt-submit">
-      <button formType="submit" type="primary">登录</button>
+      <button formType="submit" type="primary" loading="{{submiting}}" disabled='{{submiting}}'>登录</button>
     </view>
   </form>
 </view>

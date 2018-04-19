@@ -3,112 +3,98 @@ const app = getApp();
 
 
 Page({
-//   onShareAppMessage: function (res) {
-//     return {
-//       title: '你喜欢的才是好店',
-//       path: '/pages/index/index',
-//       imageUrl: "http://hdi.xiaoyu.com/images/wechatapp/common/common_haodian_share.jpg",
-//       success: function (res) {
-//         wx.showToast({
-//           title: '转发成功！',
-//           icon: 'success',
-//           duration: 2000
-//         })
-//       },
-//       fail: function (res) {
-//         // 转发失败
-//       }
-//     }
-//   },
-//   data: {
-//     isTblHeadFixed: false,
-//     isNavAllShow: false,
-//     isLoadingShow: true,
-//     dataNav: "",
-//     dataRank: "",
-//     currentIndex: 0
-//   },
-//   onLoad: function (options) {
-//     var that = this;
-//     wx.request({
-//       url: "https://m3.xiaoyu.com/welcome/wechatapp?callback=haodian.cates",
-//       data: {},
-//       method: 'GET',
-//       header: {
-//         'content-type': 'application/json' // 默认值
-//       },
-//       success: function (res) {
-//         that.setData({
-//           dataNav: res.data
-//         });
-//         that.ajaxGetRankList(that.data.dataNav.data.list[0]);
-//       }
-//     })
-//   },
+  data: {
+    xyUserInfo: "",
+    orderCount: "",
+    orderNew: ""
+  },
+  onLoad: function () {
+    var that = this;
+    //判断是否登录，如果没有登录，那么就要跳转
+    if (!app.globalData.sessionJdbId) {
+      //检车本地sessionId
+      wx.getStorage({
+        key: 'sessionJdbId',
+        success: function (res) {
+          //向后端请求(发送数据sessionJdbId)
+          that._getUserInfo(res.data);
+        },
+        fail: function () {
+          //没有本地sessionId证明都没有登陆过，直接跳转到登录页面
+          wx.redirectTo({
+            url: '/pages/login/login'
+          })
+        }
+      })
+    }else{
+      this.setData({
+        xyUserInfo: app.globalData.sessionJdbUserInfo,
+      });
+      this._getPageData();
+    }
 
 
-//  ajaxGetRankList: function (id) {
-//     var that=this;
-//     wx.request({
-//       url: "https://m3.xiaoyu.com/welcome/wechatapp?callback=haodian.top50&cate=" + id,
-//       method: 'GET',
-//       header: {
-//         'content-type': 'application/json' // 默认值
-//       },
-//       success: function (res) {
-//         that.setData({
-//           dataRank:res.data,
-//           isLoadingShow:false
-//         });
-//       },
-//       fail: function (res) {
-       
-//       }
-//     })
-//   },
 
-//   navTap: function (e) {
-//     var that = this;
-//     var id = e.currentTarget.id;
-//     //设置currentIndex
-//     this.data.dataNav.data.list.forEach(function (v, k) {
-//       if (id == v) {
-//         that.setData({
-//           currentIndex: k
-//         });
-//         return;
-//       }
-//     });
-//     this.setData({
-//       isNavAllShow: false,
-//       isLoadingShow:true
-//     })
-//     //请求获取数据
-//     this.ajaxGetRankList(id);
+  },
+  //根据id 获取用户信息
+  _getUserInfo: function (uid) {
+    var that = this;
+    wx.request({
+      url: app.globalData.server + "login.php",
+      data: { "id": uid },
+      method: 'post',
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      dataType: "json",
+      success: function (res) {
+        
+        //如果用户不存在或则错误
+        if (res.data.error) {
+          wx.redirectTo({
+            url: '/pages/login/login'
+          })
+        } else {
+          app.globalData.sessionJdbId = res.data.XyUserInfo["id"];
+          app.globalData.sessionJdbUserInfo = res.data.XyUserInfo;
+          //设置用户的信息
+          that.setData({
+            xyUserInfo: res.data.XyUserInfo
+          });
+          //本地存储id
+          wx.setStorage({
+            key: "sessionJdbId",
+            data: res.data.XyUserInfo["id"]
+          });
 
-//   },
-//   navMask:function(){
-//     this.setData({
-//       isNavAllShow: false
-//     });
-//   },
-
-//   onPageScroll: function (res) {
-//     if (res.scrollTop > 80) {
-//       this.setData({
-//         isTblHeadFixed: true
-//       })
-//     } else {
-//       this.setData({
-//         isTblHeadFixed: false
-//       })
-//     }
-//   },
-//   navMore: function () {
-//     this.setData({
-//       isNavAllShow: !this.data.isNavAllShow
-//     })
-//   }
-
-
+          that._getPageData();
+        }
+      }
+    });
+  },
+  //获取页面数据（登录以后才执行此步骤）
+  _getPageData: function () {
+    var that=this;
+    wx.request({
+      url: app.globalData.server + "order1.php",
+      method: 'post',
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      dataType: "json",
+      success: function (res) {
+        console.dir(res);
+        that.setData({
+          orderCount: res.data.orderCount,
+          orderNew: res.data.list
+        })
+      }
+    })
+  },
+  //拨打电话
+  makeCallPhone: function () {
+    wx.makePhoneCall({
+      phoneNumber: '18559160494' //仅为示例，并非真实的电话号码
+    })
+  }
 })
